@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,7 +13,7 @@ export class AppComponent implements OnInit, OnDestroy {
     isRememberMe: true,
   };
 
-  form = this.fb.group({
+  form: FormGroup = this.fb.group({
     email: this.fb.control('user@example.com', [
       Validators.required,
       Validators.email,
@@ -36,6 +36,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   makeFormControlUntouched(ctrl: FormControl) {
     ctrl.markAsUntouched();
+  }
+
+  getFormControl(ctrl: string) {
+    return this.form.get(ctrl) as FormControl;
   }
 
   onSubmit() {
