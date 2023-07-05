@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angular/forms';
 
 function passwordValidator(control: FormControl): { [s: string]: boolean } | null {
+  if (!control.value) {
+    return null;
+  }
   if (!control.value.match('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}')) {
     return { invalidPassword: true };
   } else {
