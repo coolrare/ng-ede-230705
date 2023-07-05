@@ -8,17 +8,17 @@ import { FormBuilder, FormControl, FormGroup, NgForm, Validators } from '@angula
 })
 export class AppComponent implements OnInit, OnDestroy {
   data = {
-    email: '',
-    password: '',
+    email: 'user@example.com',
+    password: '1q2w3e4R',
     isRememberMe: true,
   };
 
   form: FormGroup = this.fb.group({
-    email: this.fb.control('user@example.com', [
+    email: this.fb.control('', [
       Validators.required,
       Validators.email,
     ]),
-    password: this.fb.control('1q2w3e4R', [
+    password: this.fb.control('', [
       Validators.required,
       Validators.pattern('(?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,}'),
     ]),
@@ -29,9 +29,15 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     document.body.className = 'bg-gradient-primary';
+
+    this.form.setValue(this.data);
   }
   ngOnDestroy(): void {
     document.body.className = '';
+  }
+
+  resetForm() {
+    this.form.reset(this.data);
   }
 
   makeFormControlUntouched(ctrl: FormControl) {
