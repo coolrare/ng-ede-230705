@@ -34,6 +34,10 @@ export class AppComponent implements OnInit, OnDestroy {
     document.body.className = '';
   }
 
+  makeFormControlUntouched(ctrl: FormControl) {
+    ctrl.markAsUntouched();
+  }
+
   onSubmit() {
     if (this.form.valid) {
       console.log(this.form.value);

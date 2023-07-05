@@ -36,6 +36,7 @@ form.errors = {{form.errors | json}}</pre>
                       formControlName="email"
                       [class.is-valid]="form.controls.email.valid && form.controls.email.touched"
                       [class.is-invalid]="form.controls.email.invalid && form.controls.email.dirty"
+                      (focus)="makeFormControlUntouched(form.controls.email)"
                     />
                     <div class="valid-feedback" *ngIf="form.controls.email.valid && form.controls.email.touched">您輸入的 E-mail 格式正確</div>
                     <div class="invalid-feedback" *ngIf="form.controls.email.invalid && form.controls.email.touched && form.controls.email.errors?.['email']">您輸入的 E-mail 格式錯誤</div>
