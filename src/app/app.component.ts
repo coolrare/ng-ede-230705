@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, NgForm, UntypedFormArray, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, NgForm, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -19,7 +19,7 @@ export class AppComponent implements OnInit, OnDestroy {
     repeatPassword: '1q2w3e4R',
   };
 
-  form: FormGroup = this.fb.group({
+  form = this.fb.group({
     firstName: this.fb.control('', [Validators.required]),
     lastName: this.fb.control('', [Validators.required]),
     emails: this.fb.array([
@@ -31,7 +31,7 @@ export class AppComponent implements OnInit, OnDestroy {
     repeatPassword: this.fb.control('', [Validators.required]),
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(private fb: UntypedFormBuilder) {}
 
   getFormArray(ctrlName: string) {
     return this.form.get(ctrlName) as UntypedFormArray;
