@@ -6,7 +6,11 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'ng-ede-230705';
+  data = {
+    email: 'user@example.com',
+    password: '1q2w3e4r',
+    isRememberMe: true
+  };
 
   ngOnInit(): void {
     document.body.className = 'bg-gradient-primary';
