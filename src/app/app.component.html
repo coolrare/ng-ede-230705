@@ -26,7 +26,12 @@
                       [(ngModel)]="data.email"
                       #mEmail="ngModel"
                       required email minlength="5"
+                      [class.is-valid]="mEmail.valid"
+                      [class.is-invalid]="mEmail.invalid"
                     />
+                    <div *ngIf="mEmail.invalid && mEmail.errors?.['required']">請輸入您的 E-mail 當成登入帳號</div>
+                    <div *ngIf="mEmail.invalid && mEmail.errors?.['minlength']">您輸入的 E-mail 長度太短</div>
+                    <div *ngIf="mEmail.invalid && mEmail.errors?.['email']">您輸入的 E-mail 格式錯誤</div>
 <pre>mEmail.value = {{mEmail.value}}
 mEmail.touched = {{mEmail.touched}}
 mEmail.untouched = {{mEmail.untouched}}
@@ -50,7 +55,11 @@ mEmail.errors = {{mEmail.errors | json}}</pre>
                       [(ngModel)]="data.password"
                       required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                       #mPassword="ngModel"
+                      [class.is-valid]="mPassword.valid"
+                      [class.is-invalid]="mPassword.invalid"
                     />
+                    <span *ngIf="mPassword.invalid && mPassword.errors?.['required']">請輸入您的密碼</span>
+                    <span *ngIf="mPassword.invalid && mPassword.errors?.['pattern']">您輸入的密碼複雜度不足，請輸入至少 1 個數字、1 個英文小寫字母、1 個英文大寫字母</span>
 <pre>mPassword.value = {{mPassword.value}}
 mPassword.valid = {{mPassword.valid}}
 mPassword.invalid = {{mPassword.invalid}}
