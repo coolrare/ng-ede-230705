@@ -13,18 +13,18 @@
                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                 </div>
                 <pre>data = {{ data| json }}
-f.value = {{f.value | json}}
-f.touched = {{f.touched}}
-f.untouched = {{f.untouched}}
-f.dirty = {{f.dirty}}
-f.pristine = {{f.pristine}}
-f.valid = {{f.valid}}
-f.invalid = {{f.invalid}}
-f.enabled = {{f.enabled}}
-f.disabled = {{f.disabled}}
-f.status = {{f.status}}
-f.errors = {{f.errors | json}}</pre>
-                <form class="user" #f="ngForm" (ngSubmit)="onSubmit(f)">
+form.value = {{form.value | json}}
+form.touched = {{form.touched}}
+form.untouched = {{form.untouched}}
+form.dirty = {{form.dirty}}
+form.pristine = {{form.pristine}}
+form.valid = {{form.valid}}
+form.invalid = {{form.invalid}}
+form.enabled = {{form.enabled}}
+form.disabled = {{form.disabled}}
+form.status = {{form.status}}
+form.errors = {{form.errors | json}}</pre>
+                <form [formGroup]="form" class="user" (ngSubmit)="onSubmit()">
                   <div class="form-group">
                     <input
                       type="email"
@@ -33,28 +33,25 @@ f.errors = {{f.errors | json}}</pre>
                       aria-describedby="emailHelp"
                       placeholder="Enter Email Address..."
                       autocomplete="username"
-                      name="email"
-                      [(ngModel)]="data.email"
-                      #mEmail="ngModel"
-                      required email minlength="5"
-                      [class.is-valid]="mEmail.valid && mEmail.touched"
-                      [class.is-invalid]="mEmail.invalid && mEmail.dirty"
+                      formControlName="email"
+                      [class.is-valid]="form.controls.email.valid && form.controls.email.touched"
+                      [class.is-invalid]="form.controls.email.invalid && form.controls.email.dirty"
                     />
-                    <div class="valid-feedback" *ngIf="mEmail.valid && mEmail.touched">您輸入的 E-mail 格式正確</div>
-                    <div class="invalid-feedback" *ngIf="mEmail.invalid && mEmail.touched && mEmail.errors?.['email']">您輸入的 E-mail 格式錯誤</div>
-                    <div class="invalid-feedback" *ngIf="mEmail.invalid && mEmail.touched && mEmail.errors?.['required']">請輸入您的 E-mail 當成登入帳號</div>
-                    <div class="invalid-feedback" *ngIf="mEmail.invalid && mEmail.touched && mEmail.errors?.['minlength']">您輸入的 E-mail 長度太短</div>
-<pre>mEmail.value = {{mEmail.value}}
-mEmail.touched = {{mEmail.touched}}
-mEmail.untouched = {{mEmail.untouched}}
-mEmail.dirty = {{mEmail.dirty}}
-mEmail.pristine = {{mEmail.pristine}}
-mEmail.valid = {{mEmail.valid}}
-mEmail.invalid = {{mEmail.invalid}}
-mEmail.enabled = {{mEmail.enabled}}
-mEmail.disabled = {{mEmail.disabled}}
-mEmail.status = {{mEmail.status}}
-mEmail.errors = {{mEmail.errors | json}}</pre>
+                    <div class="valid-feedback" *ngIf="form.controls.email.valid && form.controls.email.touched">您輸入的 E-mail 格式正確</div>
+                    <div class="invalid-feedback" *ngIf="form.controls.email.invalid && form.controls.email.touched && form.controls.email.errors?.['email']">您輸入的 E-mail 格式錯誤</div>
+                    <div class="invalid-feedback" *ngIf="form.controls.email.invalid && form.controls.email.touched && form.controls.email.errors?.['required']">請輸入您的 E-mail 當成登入帳號</div>
+                    <div class="invalid-feedback" *ngIf="form.controls.email.invalid && form.controls.email.touched && form.controls.email.errors?.['minlength']">您輸入的 E-mail 長度太短</div>
+<pre>form.controls.email.value = {{form.controls.email.value}}
+form.controls.email.touched = {{form.controls.email.touched}}
+form.controls.email.untouched = {{form.controls.email.untouched}}
+form.controls.email.dirty = {{form.controls.email.dirty}}
+form.controls.email.pristine = {{form.controls.email.pristine}}
+form.controls.email.valid = {{form.controls.email.valid}}
+form.controls.email.invalid = {{form.controls.email.invalid}}
+form.controls.email.enabled = {{form.controls.email.enabled}}
+form.controls.email.disabled = {{form.controls.email.disabled}}
+form.controls.email.status = {{form.controls.email.status}}
+form.controls.email.errors = {{form.controls.email.errors | json}}</pre>
                   </div>
                   <div class="form-group">
                     <input
@@ -63,19 +60,16 @@ mEmail.errors = {{mEmail.errors | json}}</pre>
                       id="exampleInputPassword"
                       placeholder="Password"
                       autocomplete="new-password"
-                      name="password"
-                      [(ngModel)]="data.password"
-                      required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
-                      #mPassword="ngModel"
-                      [class.is-valid]="mPassword.valid && mPassword.dirty"
-                      [class.is-invalid]="mPassword.invalid && mPassword.dirty"
+                      formControlName="password"
+                      [class.is-valid]="form.controls.password.valid && form.controls.password.dirty"
+                      [class.is-invalid]="form.controls.password.invalid && form.controls.password.dirty"
                     />
-                    <span *ngIf="mPassword.invalid && mPassword.touched && mPassword.errors?.['required']">請輸入您的密碼</span>
-                    <span *ngIf="mPassword.invalid && mPassword.touched && mPassword.errors?.['pattern']">您輸入的密碼複雜度不足，請輸入至少 1 個數字、1 個英文小寫字母、1 個英文大寫字母</span>
-<pre>mPassword.value = {{mPassword.value}}
-mPassword.valid = {{mPassword.valid}}
-mPassword.invalid = {{mPassword.invalid}}
-mPassword.errors = {{mPassword.errors | json}}</pre>
+                    <span *ngIf="form.controls.password.invalid && form.controls.password.touched && form.controls.password.errors?.['required']">請輸入您的密碼</span>
+                    <span *ngIf="form.controls.password.invalid && form.controls.password.touched && form.controls.password.errors?.['pattern']">您輸入的密碼複雜度不足，請輸入至少 1 個數字、1 個英文小寫字母、1 個英文大寫字母</span>
+<pre>form.controls.password.value = {{form.controls.password.value}}
+form.controls.password.valid = {{form.controls.password.valid}}
+form.controls.password.invalid = {{form.controls.password.invalid}}
+form.controls.password.errors = {{form.controls.password.errors | json}}</pre>
                   </div>
                   <div class="form-group">
                     <div class="custom-control custom-checkbox small">
@@ -83,8 +77,7 @@ mPassword.errors = {{mPassword.errors | json}}</pre>
                         type="checkbox"
                         class="custom-control-input"
                         id="customCheck"
-                        name="isRememberMe"
-                        [(ngModel)]="data.isRememberMe"
+                        formControlName="isRememberMe"
                       />
                       <label class="custom-control-label" for="customCheck"
                         >Remember Me</label
@@ -94,7 +87,7 @@ mPassword.errors = {{mPassword.errors | json}}</pre>
                   <button
                     type="submit"
                     class="btn btn-primary btn-user btn-block"
-                    [disabled]="f.invalid"
+                    [disabled]="form.invalid"
                   >
                     Login
                   </button>

@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { FormBuilder, NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +13,14 @@ export class AppComponent implements OnInit, OnDestroy {
     isRememberMe: true
   };
 
+  form = this.fb.group({
+    email: 'user@example.com',
+    password: '1q2w3e4R',
+    isRememberMe: true
+  });
+
+  constructor(private fb: FormBuilder) {}
+
   ngOnInit(): void {
     document.body.className = 'bg-gradient-primary';
   }
@@ -20,10 +28,9 @@ export class AppComponent implements OnInit, OnDestroy {
     document.body.className = '';
   }
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      console.log(this.data);
-      // console.log(form.value);
+  onSubmit() {
+    if (this.form.valid) {
+      console.log(this.form.value);
     }
   }
 }
