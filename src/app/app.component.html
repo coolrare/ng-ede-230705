@@ -9,6 +9,7 @@
             <div class="text-center">
               <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
             </div>
+            <pre>{{ form.value | json }}</pre>
             <form class="user" [formGroup]="form" (ngSubmit)="onSubmit()">
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
@@ -18,8 +19,8 @@
                     id="exampleFirstName"
                     placeholder="First Name"
                     formControlName="firstName"
-                    [class.is-valid]="form.controls.firstName.valid"
-                    [class.is-invalid]="form.controls.firstName.invalid"
+                    [class.is-valid]="form.controls['firstName'].valid"
+                    [class.is-invalid]="form.controls['firstName'].invalid"
                   />
                 </div>
                 <div class="col-sm-6">
@@ -29,22 +30,30 @@
                     id="exampleLastName"
                     placeholder="Last Name"
                     formControlName="lastName"
-                    [class.is-valid]="form.controls.lastName.valid"
-                    [class.is-invalid]="form.controls.lastName.invalid"
+                    [class.is-valid]="form.controls['lastName'].valid"
+                    [class.is-invalid]="form.controls['lastName'].invalid"
                   />
                 </div>
               </div>
-              <div class="form-group">
-                <input
-                  type="email"
-                  class="form-control form-control-user"
-                  id="exampleInputEmail"
-                  placeholder="Email Address"
-                  formControlName="email"
-                  [class.is-valid]="form.controls.email.valid"
-                  [class.is-invalid]="form.controls.email.invalid"
-                />
-              </div>
+
+              <ng-container formArrayName="emails">
+
+                  <div class="form-group" *ngFor="let item of getFormArray('emails').controls; let i=index">
+                    <input
+                      type="email"
+                      class="form-control form-control-user"
+                      id="exampleInputEmail"
+                      placeholder="Email Address"
+                      [formControlName]="i"
+                      [class.is-valid]="item.valid"
+                      [class.is-invalid]="item.invalid"
+                    />
+                  </div>
+
+              </ng-container>
+
+              <button type="button" (click)="addEmailField()">新增 E-mail 輸入</button>
+
               <div class="form-group row">
                 <div class="col-sm-6 mb-3 mb-sm-0">
                   <input
@@ -53,8 +62,8 @@
                     id="exampleInputPassword"
                     placeholder="Password"
                     formControlName="password"
-                    [class.is-valid]="form.controls.password.valid"
-                    [class.is-invalid]="form.controls.password.invalid"
+                    [class.is-valid]="form.controls['password'].valid"
+                    [class.is-invalid]="form.controls['password'].invalid"
                   />
                 </div>
                 <div class="col-sm-6">
@@ -64,8 +73,8 @@
                     id="exampleRepeatPassword"
                     placeholder="Repeat Password"
                     formControlName="repeatPassword"
-                    [class.is-valid]="form.controls.repeatPassword.valid"
-                    [class.is-invalid]="form.controls.repeatPassword.invalid"
+                    [class.is-valid]="form.controls['repeatPassword'].valid"
+                    [class.is-invalid]="form.controls['repeatPassword'].invalid"
                   />
                 </div>
               </div>
