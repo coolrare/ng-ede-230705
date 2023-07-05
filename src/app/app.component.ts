@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -7,8 +8,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class AppComponent implements OnInit, OnDestroy {
   data = {
-    email: 'user@example.com',
-    password: '1q2w3e4r',
+    email: '',
+    password: '',
     isRememberMe: true
   };
 
@@ -17,5 +18,12 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy(): void {
     document.body.className = '';
+  }
+
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      console.log(this.data);
+      // console.log(form.value);
+    }
   }
 }

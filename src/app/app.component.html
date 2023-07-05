@@ -12,8 +12,19 @@
                 <div class="text-center">
                   <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                 </div>
-                <pre>data = {{ data| json }}</pre>
-                <form class="user">
+                <pre>data = {{ data| json }}
+f.value = {{f.value | json}}
+f.touched = {{f.touched}}
+f.untouched = {{f.untouched}}
+f.dirty = {{f.dirty}}
+f.pristine = {{f.pristine}}
+f.valid = {{f.valid}}
+f.invalid = {{f.invalid}}
+f.enabled = {{f.enabled}}
+f.disabled = {{f.disabled}}
+f.status = {{f.status}}
+f.errors = {{f.errors | json}}</pre>
+                <form class="user" #f="ngForm" (ngSubmit)="onSubmit(f)">
                   <div class="form-group">
                     <input
                       type="email"
@@ -26,12 +37,13 @@
                       [(ngModel)]="data.email"
                       #mEmail="ngModel"
                       required email minlength="5"
-                      [class.is-valid]="mEmail.valid"
-                      [class.is-invalid]="mEmail.invalid"
+                      [class.is-valid]="mEmail.valid && mEmail.touched"
+                      [class.is-invalid]="mEmail.invalid && mEmail.dirty"
                     />
-                    <div *ngIf="mEmail.invalid && mEmail.errors?.['required']">請輸入您的 E-mail 當成登入帳號</div>
-                    <div *ngIf="mEmail.invalid && mEmail.errors?.['minlength']">您輸入的 E-mail 長度太短</div>
-                    <div *ngIf="mEmail.invalid && mEmail.errors?.['email']">您輸入的 E-mail 格式錯誤</div>
+                    <div class="valid-feedback" *ngIf="mEmail.valid && mEmail.touched">您輸入的 E-mail 格式正確</div>
+                    <div class="invalid-feedback" *ngIf="mEmail.invalid && mEmail.touched && mEmail.errors?.['email']">您輸入的 E-mail 格式錯誤</div>
+                    <div class="invalid-feedback" *ngIf="mEmail.invalid && mEmail.touched && mEmail.errors?.['required']">請輸入您的 E-mail 當成登入帳號</div>
+                    <div class="invalid-feedback" *ngIf="mEmail.invalid && mEmail.touched && mEmail.errors?.['minlength']">您輸入的 E-mail 長度太短</div>
 <pre>mEmail.value = {{mEmail.value}}
 mEmail.touched = {{mEmail.touched}}
 mEmail.untouched = {{mEmail.untouched}}
@@ -55,11 +67,11 @@ mEmail.errors = {{mEmail.errors | json}}</pre>
                       [(ngModel)]="data.password"
                       required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}"
                       #mPassword="ngModel"
-                      [class.is-valid]="mPassword.valid"
-                      [class.is-invalid]="mPassword.invalid"
+                      [class.is-valid]="mPassword.valid && mPassword.dirty"
+                      [class.is-invalid]="mPassword.invalid && mPassword.dirty"
                     />
-                    <span *ngIf="mPassword.invalid && mPassword.errors?.['required']">請輸入您的密碼</span>
-                    <span *ngIf="mPassword.invalid && mPassword.errors?.['pattern']">您輸入的密碼複雜度不足，請輸入至少 1 個數字、1 個英文小寫字母、1 個英文大寫字母</span>
+                    <span *ngIf="mPassword.invalid && mPassword.touched && mPassword.errors?.['required']">請輸入您的密碼</span>
+                    <span *ngIf="mPassword.invalid && mPassword.touched && mPassword.errors?.['pattern']">您輸入的密碼複雜度不足，請輸入至少 1 個數字、1 個英文小寫字母、1 個英文大寫字母</span>
 <pre>mPassword.value = {{mPassword.value}}
 mPassword.valid = {{mPassword.valid}}
 mPassword.invalid = {{mPassword.invalid}}
@@ -82,6 +94,7 @@ mPassword.errors = {{mPassword.errors | json}}</pre>
                   <button
                     type="submit"
                     class="btn btn-primary btn-user btn-block"
+                    [disabled]="f.invalid"
                   >
                     Login
                   </button>
